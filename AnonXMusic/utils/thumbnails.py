@@ -148,7 +148,8 @@ async def get_thumb(videoid, user_id):
             channel = result["channel"]["name"]
         except:
             channel = "Unknown Channel"
-thumb_path = f"cache/thumb_{videoid}.png"
+
+        thumb_path = f"cache/thumb_{videoid}.png"
 
         async with aiohttp.ClientSession() as session:
             async with session.get(thumbnail) as resp:
@@ -263,4 +264,35 @@ thumb_path = f"cache/thumb_{videoid}.png"
             fill=(255, 255, 255),
             font=small_font,
         )
-# Music bar<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw.rounded_rectangle(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (140, 555, 1140, 575),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radius=10,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fill=(255, 255, 255, 70),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw.rounded_rectangle(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (140, 555, 700, 575),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radius=10,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fill=(0, 255, 255, 170),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw.ellipse((690, 548, 718, 582), fill=(255, 255, 255))<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw.text((135, 585), "00:00", fill="white", font=small_font)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw.text((1070, 585), f"{duration[:20]}", fill="white", font=small_font)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; # Soft neon lines<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw.line((115, 195, 1165, 195), fill=(255, 255, 255, 90), width=2)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw.line((115, 520, 1165, 520), fill=(255, 255, 255, 70), width=2)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; os.remove(thumb_path)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; except:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pass<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; background.save(final_path)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return final_path<br><br>&nbsp;&nbsp;&nbsp; except Exception as e:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; print(f"Thumbnail Error: {e}")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return YOUTUBE_IMG_URL
+        
+        # Music bar
+        draw.rounded_rectangle(
+            (140, 555, 1140, 575),
+            radius=10,
+            fill=(255, 255, 255, 70),
+        )
+        draw.rounded_rectangle(
+            (140, 555, 700, 575),
+            radius=10,
+            fill=(0, 255, 255, 170),
+        )
+        draw.ellipse((690, 548, 718, 582), fill=(255, 255, 255))
+
+        draw.text((135, 585), "00:00", fill="white", font=small_font)
+        draw.text((1070, 585), f"{duration[:20]}", fill="white", font=small_font)
+
+        # Soft neon lines
+        draw.line((115, 195, 1165, 195), fill=(255, 255, 255, 90), width=2)
+        draw.line((115, 520, 1165, 520), fill=(255, 255, 255, 70), width=2)
+
+        try:
+            os.remove(thumb_path)
+        except:
+            pass
+
+        background.save(final_path)
+        return final_path
+
+    except Exception as e:
+        print(f"Thumbnail Error: {e}")
+        return YOUTUBE_IMG_URL
